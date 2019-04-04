@@ -1,0 +1,199 @@
+  
+   script_1 for  in /home/selatn_r/web/discover_data_base/pruvos_j
+   
+   Made by SELATNI Ryad
+   Login   <selatn_r@etna-alternance.net>
+   
+   Started on  Mon Oct 31 10:53:37 2016 SELATNI Ryad
+   Last update Fri Nov 18 11:16:16 2016 PRUVOST joffrey
+  
+
+ETAPE 1 :
+      -creation de l'user avec son mot de passe :
+      CREATE USER PHPMyAdmin@192.168.55.33 IDENTIFIED BY 'welcome';
+      -attribution des droits admin a l'utilisateur sur la
+      base de donne en cours d'utilisation:
+      GRANT ALL ON * TO PHPMyAdmin ;
+
+ETAPE 2 :
+      -Creation de base de donne:
+      CREATE DATABASE site_pruvos_j CHARACTER SET 'utf8';
+      
+      Je choisie l'encodage utf8 parceau'etant recent il permet d'afficher bien plus de
+      caractere differents et permet ainsi d'eviter les erreurs du moment que le logiciel
+      est adapte.
+
+ETAPE 3 :
+      -Insertions des tables
+
+CREATE TABLE Utilisateurs (
+      ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      Nom VARCHAR(20) NOT NULL,
+      Prenom VARCHAR(20) NOT NULL,
+      Date_de_naissance DATE,
+      Ville VARCHAR(40) NOT NULL,
+      Adresse VARCHAR(100) NOT NULL,
+      Code_postale VARCHAR(5) NOT NULL,
+      Pays VARCHAR(30) NOT NULL,
+      sexe CHAR(1) NOT NULL,
+      Role INT(6) UNSIGNED,
+      Date_creation DATE,
+      Date_modification DATE,
+      FOREIGN KEY (Role)
+      REFERENCES Role(ID)
+      );
+
+CREATE TABLE Role (
+       ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+       Libelle VARCHAR(20) NOT NULL,
+       Description TEXT,
+       Date_creation DATE,
+       Date_modification DATE
+       );
+
+CREATE TABLE Hero (
+       ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+       Libelle VARCHAR(30) NOT NULL,
+       Description TEXT,
+       Prix_achat FLOAT(6,2),
+       Prix_vente FLOAT(6,2),
+       Nombres_produit INT(6),
+       Date_creation DATE,
+       Date_modification DATE
+       );
+
+CREATE TABLE Team (
+       ID INT(6) UNSIGNED AUTO INCREMENT PRIMARY KEY,
+       Team VARCHAR(20) NOT NULL,
+       Description TEXT,
+       Date_creation DATE,
+       Date_modification DATE
+       );
+
+CREATE TABLE Team_Hero (
+       ID_categorie INT(6) UNSIGNED NOT NULL,
+       ID_produit INT(6) UNSIGNED NOT NULL,
+       FOREIGN KEY (ID_categorie)
+       REFERENCES Categories(ID),
+       FOREIGN KEY (ID_produit)
+       REFERENCES Produits(ID)
+       )ENGINE=InnoDB
+
+CREATE TABLE Hero_Utilisateur (
+       ID_produit INT(6) UNSIGNED,
+       ID_utilisateur INT(6) UNSIGNED,
+       FOREIGN KEY (ID_produit)
+       REFERENCES Produits(ID),
+       FOREIGN KEY (ID_utilisateur)
+       REFERENCES Utilisateurs(ID)
+       );
+
+
+ETAPE 4 :
+
+INSERT INTO Utilisateurs
+VALUES
+('', 'Pruvost', 'Joffrey', '1998-06-02', 'Croix-en-ternois', '20 rue du nord', '62000', 'France', 'M','1', '', ''),
+('', 'Selatni', 'Ryad', '1998-06-02', 'Marly', 'rue des cedres', '95600', 'France', 'M','1', '', ''),
+('', 'Achat', 'Youmer', '1998-09-08', 'Bejaia', 'Bejaia', '06000', 'Algerie', 'M','1', '', ''),
+('', 'Stark', 'Tony', '1963-06-02', 'Long Island', 'Stark Tower', '10001', 'Etats Unis', 'M','1', '', ''),
+('', 'Chaplin', 'Charlie', '1889-04-16', 'Londres', 'Corsier-sur-Vevey', 'E1', 'Angleterre', 'M','1', '', ''),
+('', 'test1', 'Test1', '1998-06-02', 'Etna', '20 rue du nord', '62000', 'France', 'F','1', '', ''),
+('', 'test2', 'Test2', '1998-06-02', 'Etna', '20 rue du nord', '62000', 'France', 'F','1', '', ''),
+('', 'test3', 'Test3', '1998-06-02', 'Etna', '20 rue du nord', '62000', 'France', 'F','1', '', ''),
+('', 'test4', 'Test4', '1998-06-02', 'Etna', '20 rue du nord', '62000', 'France', 'F','1', '', ''),
+('', 'test5', 'Test5', '1998-06-02', 'Etna', '20 rue du nord', '62000', 'France', 'F','1', '', '');
+
+
+INSERT INTO RoleVALUES
+('', 'Dieu', 'Etres surpuissant descendant de legendes', '', ''),
+('', 'Scientifique', 'Personnage douer d une intelligence exceptionnel', '', ''),
+('', 'Mutant', 'Descendant d une race disposant de caracteristique different de ses congeneres', '', '');
+
+INSERT INTO Produits
+VALUES
+('', 'Thor', 'Dieu de la foudre usant d un marteau en combat', '1.5', '0.8', '4', '', ''),
+('', 'Harley Queen', 'Badass dangereuse assasin voleuse aime s amuser et le Joker mais surtout folle', '1.2', '0,73', '7', '', ''),
+('', 'Hulk', 'Homme ayant un gros probleme de colere', '1.6', '1', '12', '', ''),
+('', 'Wonder Woman', 'Reine des guerriere amazon', '1.5', '0.8', '4', '', ''),
+('', 'Iron Man', 'billionnaire inventeur philantrope gigolo combattant dans une armure toujours a jour', '1.5', '0.8', '4', '', ''),
+('', 'Vision', 'Entite spirituelle possedant un corps d adamentium', '1.5', '0.8', '4', '', ''),
+('', 'Batman', 'Homme aussi riche que sombre', '1.5', '0.8', '4', '', ''),
+('', 'Superman', 'Extraterestre abusivement puissant', '1.5', '0.8', '4', '', ''),
+('', 'Aquaman', 'Homme ayant un fort lien avec l ocean', '1.5', '0.8', '4', '', ''),
+('', 'DeadShot', 'Il ne rate jamais son tire sauf en cas de personnage principal', '1.5', '0.8', '4', '', ''),
+('', 'Groot', 'Arbre humanoide dont lescapacite s adapte aux besoin', '1.5', '0.8', '4', '', ''),
+('', 'Rocket Racoon', 'Raton laveur expert en armement plus lourd que lui', '1.5', '0.8', '4', '', ''),
+('', 'Gamora', 'assassin extraterestre entrainer depuis sa jeunesse', '1.5', '0.8', '4', '', ''),
+('', 'El Diablo', 'Homme habiter par un demon du feu', '1.5', '0.8', '4', '', ''),
+('', 'Flash', 'Scientifique pouvant vibrer a travers la matiere', '1.5', '0.8', '4', '', '');
+
+
+INSERT INTO Categories
+VALUES
+('', 'Avengers', 'Equipe de super-heros de l univers Marvel se battant pour proteger la terre', '', ''),
+('', 'Gardiens de la galaxie', 'Groupe improbable sauvant la galaxie', '', ''),
+('', 'Suicid Squad', 'Team construite dans le but de defendre le monde et dont ont puisse se debarasser', '', '');
+
+INSERT INTO Categorie_Produit
+VALUES
+('1', '1'),
+('3', '3'),
+('1', '4'),
+('3', '8'),
+('1', '2'),
+('1', '6'),
+('3', '1'),
+('3', '2'),
+('3', '7'),
+('2', '4'),
+('2', '2');
+
+INSERT INTO Produit_Utilisateur
+VALUES
+('2', '21'),
+('4', '22');
+
+INSERT INTO Pictures (id, name, hero, path, hero_name, groupe, description, prix)
+VALUES
+('','Captain-profil.jpg','Captain_America','./pictures/profil/Captain-profil.jpg','CAPTAIN AMERICA', 'Avengers', 'Vowing to serve his country any way he could, young Steve Rogers took the super soldier serum to become America's one-man army. Fighting for the red, white and blue for over 60 years, Captain America is the living, breathing symbol of freedom and liberty.', '2000'),
+('','Iron-Man_profil.jpg','Iron_Man','./pictures/profil/Iron-Man_profil.jpg','IRON MAN', 'Avengers', 'Wounded, captured and forced to build a weapon by his enemies, billionaire industrialist Tony Stark instead created an advanced suit of armor to save his life and escape captivity. Now with a new outlook on life, Tony uses his money and intelligence to make the world a safer, better place as Iron Man.', '10900'),
+('', 'Thor_profil.jpg', 'Thor', './pictures/profil/Thor_profil.jpg', 'THOR', 'Avengers', 'As the Norse God of thunder and lightning, Thor wields one of the greatest weapons ever made, the enchanted hammer Mjolnir. While others have described Thor as an over-muscled, oafish imbecile, he s quite smart and compassionate. He's self-assured, and he would never, ever stop fighting for a worthwhile cause.', '2350'),
+('', 'Hulk_profil.jpeg', 'Hulk', './pictures/profil/Hulk_profil.jpeg', 'HULK', 'Avengers','Caught in a gamma bomb explosion while trying to save the life of a teenager, Dr. Bruce Banner was transformed into the\ incredibly powerful creature called the Hulk. An all too often misunderstood hero, the angrier the Hulk gets, the stronger the Hulk gets.', '25000'),
+('', 'Veuve-noire_profil.jpg', 'Black_Widow', './pictures/profil/Veuve-noire_profil.jpg', 'BLACK WIDOW', 'Avengers', 'Natasha Romanova, known by many aliases, is an expert spy, athlete, and assassin. Trained at a young age by the KGB s infamous Red Room Academy, the Black Widow was formerly an enemy to the Avengers. She later became their ally after breaking out of the U.S.S.R. s grasp, and also serves as a top S.H.I.E.L.D. agent.', '50000')
+('','.Oeil-de-faucon_profil.jpg', 'Hawkeye', './pictures/profil/Oeil-de-faucon_profil.jpg', 'HAWKEYE', 'Avengers', 'Adventurer, former outlaw, former spy, former federal inmate, former unofficial agent of SHIELD, former chief of security of Cross Technological Enterprises, former rancher, former archery professor, former professional criminal, former Circus artist, former apprentice in butchery.', '980'),
+('', 'Batman_profil.jpg', 'Batman', './pictures/profil/Batman_profil.jpg', 'BATMAN', 'Justice League', 'Millionaire Bruce Wayne was just a kid when he watched his parents get gunned down during a mugging in Gotham City. The crime would define his life, as he dedicated himself to becoming the world’s greatest weapon against crime—the Batman.', '11000'),
+('', 'Superman.jpg', 'Superman', './pictures/profil/Superman.jpg', 'SUPERMAN', 'Justice League', 'Rocketed to Earth from the dying planet Krypton, baby Kal-El was found by a farming couple who named the boy Clark Kent and raised him as their own. Discovering his enormous powers, they instilled in him strong moral values and inspired him to become a hero.', '22500'),
+('', 'Wonder-woman.jpg', 'Wonder_Woman', './pictures/profil/Wonder-woman.jpg', 'WONDER WOMAN', 'Justice League', 'Wonder Woman is Princess Diana of the immortal Amazons from Greek mythology.  When army pilot Steve Trevor crashes on the warriors’ secluded island paradise, Diana wins the right to escort him home and make her people known to the world. Entering our cynical world for the first time, there’s a lot she must wrap her head around, especially our ways of war, hate, and, well… dating. Helping her are her superhuman strength and speed, as well as the trademark bulletproof bracelets, but it’s probably her Golden Lasso of Truth most people really wish they had.', '13000'),
+('', 'Aquaman.jpeg', 'Aquaman', './pictures/profil/Aquaman.jpeg', 'AQUAMAN', 'Justice League', 'Cast out from Atlantis as a baby, Arthur Curry grew up on land, thinking himself a normal human. But when he matured, Atlantis returned, claiming him as their rightful king. Caught between a surface world constantly ravaging the sea and Atlanteans looking to lash out in revolt, he’s committed to protecting the entire globe.', '2000'),
+('', 'Flash_profil.jpg', 'Flash', './pictures/profil/Flash_profil.jpg', 'FLASH', 'Justice League', 'Young Barry Allen’s life stopped the minute his mother was murdered. The true killer never found, its mystery obsessed Barry, driving him to become a forensic scientist. Consumed by his work, he spent his life chained to his desk, solving every case that flew across it. But when a freak lightning bolt hits a nearby shelf in his lab, Barry receives super-speed, becoming the Flash. Now, he’ll race up buildings, across oceans, and around the world to get his man—while getting introduced to a world so much bigger than his old life of microscopes and cold cases.', '1700'),
+('', 'Cyborg_profile.jpg', 'Cyborg', './pictures/profil/Cyborg_profile.jpg', 'CYBORG', 'Justice League', 'Although a star athlete, Vic Stone only yearned for his father’s approval. But Dad was too focused on his scientific career to notice… until the day Vic became his greatest experiment. After Vic suffered a grave injury, his father saved him by replacing over half his body with cybernetic parts.', '1750'),
+('', 'Harley-quinn.png', 'Harley_Quinn', './pictures/profil/Harley-quinn.png', 'HARLEY QUINN', 'Suicide Squad', 'Before her descent into madness, Dr. Harleen Quinzel was a promising psychiatrist assigned to Arkham Asylum, Gotham s home for the criminally insane. But after meeting the Joker, the young doctor became obsessed with the crazed criminal s warped mind. Sensing opportunity, the Joker manipulated her, driving his therapist so mad that he was able to control her. Harleen fell in love with the villain, broke him out of Arkham and devoted her life to making him happy and spreading his bloody brand of mayhem.', '75000'),
+('', 'Captain-boomerang.jpg', 'Captain_Boomerang', './pictures/profil/Captain-boomerang.jpg', 'CAPTAIN BOOMERANG', 'Suicid Squad', 'During his childhood in Australia, Digger became adept at crafting boomerangs. At first, they were playthings, but later in life, he learned to enhance his boomerangs with incendiary or electrifying components. Digger’s skill with the device led to a job as a performer and boomerang promoter in the U.S., but he didn’t receive a warm welcome. Laughter from the audience made him resentful, so he took his bitterness and poured it into a life of crime, taking on the moniker of Captain Boomerang. Eventually, the law caught up with him, and Digger found himself looking at a life in prison. That is, of course, unless he joined the Suicide Squad for a chance at a pardon.', '500'),
+('', './pictures/profil/Deadshot_profil.png', 'Deadshot', './pictures/profil/Deadshot_profil.png', 'DEADSHOT', 'Suicid Squad', 'Part of Gotham City s long line of rogues, Deadshot is obsessed with precision, firmly believing that the target who s been paid for should be the only one taken down. In the midst of a successful career, Lawton was taken down by the Dark Knight and sentenced to life in prison for the countless assassinations he committed. However, a man of Lawton s skills earns a reputation.', '3375'),
+('', 'El-Diablo.jpeg', 'El_Diablo', './pictures/profil/El-Diablo.jpeg', 'EL DIABLO', 'Suicid Squad', 'When gang leader Chato Santana was left severely wounded after being betrayed by his second-in-command, he found himself sharing a hospital room with the comatose gunslinger Lazarus Lane. The nearly dead Santana traveled to the spirit world, where Lane passed the El Diablo curse he had been suffering from on to him. It wasn’t a gift. The El Diablo curse is rooted in revenge and punishment. It drives the afflicted to seek right for any wrongs that have been done, regardless of the cost. It bestows its host with a variety of abilities, most notably pyrokinesis and extreme resistance to injury, as well as supernatural skills such as seeing a person’s sins written on their soul and communicating with spirits in the great beyond.', '2500'),
+('', 'Enchanteresse.jpg', 'Enchantress', './pictures/profil/Enchanteresse.jpg', 'ENCHANTRESS', 'Suicid Squad', 'Initially, June used her newfound skills as Enchantress to defeat evil creatures. She walked a heroic path, but sadly, her good intentions didn’t last. As June’s Enchantress persona became more nefarious, she enlisted in the Suicide Squad, the incentive for which was Amanda Waller’s help in learning how to control the Enchantress.', '25000'),
+('', 'Katana.jpg', 'Katana', './pictures/profil/Katana.jpg', 'KATANA', 'Suicid Squad', 'However, Katana s quest for justice isn t a solo affair—the souls of her dead husband and countless others currently reside in her sword, the mystical blade known as the Soultaker.', '2750'),
+('', './pictures/profil/Killer-croc_profil.jpg', 'Killer_Croc', './pictures/profil/Killer-croc_profil.jpg', 'KILLER CROC', 'Suicid Squad', 'As he grew older, Waylon became bitter, developing into a violent and malevolent criminal and adopting a fearful name that matched his frightening appearance—Killer Croc. Waylon managed to engineer a career path that took him from sideshow wrestler to a formidable criminal figure in the Gotham City underworld, often finding himself at violent odds with Batman. And yet, perhaps because of his childhood, Waylon has a soft spot for abandoned and neglected children. He shelters many within his territory in the sewers of Gotham, something that has not gone unnoticed by the Dark Knight, who has demonstrated a bit more leniency with Croc over the years than with most of Gotham s rogues.', '1350'),
+('', 'Rick-flag_profil.jpg', 'Rick_Flag', './pictures/profil/Rick-flag_profil.jpg', 'RICK_FLAG', 'Suicid Squad', 'Leading the infamous Suicide Squad comes with a lot of baggage. Comprised entirely of criminals and super-villains, the group draws the most challenging missions where survival is almost always secondary. As a military hero, Rick doesn’t share the checkered past of many of his teammates, but is nevertheless fiercely loyal to the Squad. He’s never backed down from a conflict and he’s applied his talents as a leader, a pilot and a fighter in scrape after scrape.', '1000'),
+('', 'Slipknot.jpg', 'Slipknot', './pictures/profil/Slipknot.jpg', 'SLIPKNOT', 'Suicid Squad', 'Slipknot is a villain who is believed to have once worked as a chemist in the Southern United States, where he developed the supremely powerful adhesive that covers his ropes.', '10'),
+('', 'Star-lord_profile.jpg', 'Star_Lord', './pictures/profil/Star-lord_profile.jpg', 'STAR LORD', 'Guardians of the Galaxy', 'Refusing to miss his opportunity, Peter Jason Quill stole a scoutship from Cape Canaveral, returned to Eve, and shot his way to the appointed spot, where his old rival Harrelson, NASA s choice to be Star-Lord, was awaiting selection, where Quill was transported away in his stead, and transformed into Star-Lord.', '10000'),
+('', 'Rocket-Raccoon.jpg', 'Rocket_Raccoon', './pictures/profil/Rocket-Raccoon.jpg', 'ROCKET RACCOON', 'Guardians of the Galaxy', 'An expert marksman with a penchant for large weaponry, Rocket Raccoon is the last of his kind. After being captured by the Kree, Rocket teams up with Star-Lord and other adventurers to form the Guardians of the Galaxy. Together, they travel the galaxy and defend it from those who wish it harm.', '7500'),
+('', 'Groot_profile.jpg', 'Groot', './pictures/profil/Groot_profile.jpg', 'GROOT', 'Guardians of the Galaxy', 'The tree-like creature known as Groot was captured by the Kree and put on a team with Star-Lord, Bug, Mantis, and Rocket Raccoon. A tree of few words, Groot formed a bond with the creature known as Rocket Raccoon. Forming the Guardians of the Galaxy, Groot and his best friend Rocket travel through space getting into trouble wherever they go.', '40000'),
+('', 'Gamora_profil.jpg', 'Gamora', './pictures/profil/Gamora_profil.jpg', 'Gamora', 'Guardians of the Galaxy', 'The last of the Zen-Whoberi race, Gamora was adopted by the villainous Thanos and raised as an assassin. Gamora turned on her adopted father and now uses her abilities to help those who cannot help themselves. A veteran of the Annihilation Wave, Gamora now travels with the Guardians of the Galaxy and is known as the Most Dangerous Woman in the Universe.', '35000'),
+('', './pictures/profil/Drax_profil.jpg', 'Drax', './pictures/profil/Drax_profil.jpg', 'DRAX', 'Guardians of the Galaxy', 'After being murdered along with his family by Thanos, Arthur Douglas was reborn as Drax the Destroyer, a superhuman warrior designed to defeat the mad Titan. Recruited by Star-Lord to join the Guardians of the Galaxy, Drax possesses superhuman strength, durability and a healing factor making him strong enough to face any threat he comes across.', '5500'),
+('', 'dancing-groot.jpg', 'Dancing_Groot', './photo/dancing-groot.jpg', 'DANCING GROOT', 'Guardians of the Galaxy', 'After the death of Groot during the crash of Ronan s ship, Rocket Raccoon picked up Groot seeds found in the rubble he plamed in a flower pot. The flower that pushed addore moved with music, so reborn Groot.', '200000'),
+('', 'Deadpool_profile.jpg', 'DeadPool', './pictures/profil/Deadpool_profile.jpg', 'DEADPOOL', 'Unknow', 'Wade Wilson is a former test subject of the Weapon X program, possessing a regenerative healing factor and an unstable compiling of other "Weapon X" experiments. Deadpool s powers and personality traits combine to make a wild, mentally unstable, and unpredictable mercenary. Deadpool has been a member of X-Force and the Thunderbolts, and a self-professed member of the X-Men and Avengers. The "Merc with a Mouth" is infamous for breaking the fourth wall.', '150000'),
+('', 'Spiderman_profil.jpg', 'Spiderman', './pictures/profil/Spiderman_profil.jpg', 'SPIDERMAN', 'Unknow', 'Bitten by a radioactive spider, high school student Peter Parker gained the speed, strength and powers of a spider. Adopting the name Spider-Man, Peter hoped to start a career using his new abilities. Taught that with great power comes great responsibility, Spidey has vowed to use his powers to help people.', '125000'),
+('', 'Joker_profil.jpg', 'Joker', './pictures/profil/Joker_profil.jpg', 'JOKER', 'Unknow', 'Unpredictable, violent and incredibly dangerous, he is chaos personified and has taken on everyone from his archenemy Batman to even the Man of Steel. But Gotham remains his primary home and Batman his biggest adversary, and no hero is perhaps better suited as in many ways, the Joker is the polar opposite of the Dark Knight. Both were created by a great tragedy, but Batman has since vowed to do whatever it takes to prevent similar incidents, the Joker revels in creating chaos and destroying lives, believing that life’s a big joke and psychotically demonstrating that in a moment, it can all change.', '175000'),
+('', 'Batman.jpg', 'Batman_a', './photo/Batman.jpg', 'BATMAN', 'Justice League', '', ''),
+('', 'captain-america.jpg', 'Captain_America_a', './photo/captain-america.jpg', 'CAPTAIN AMERICA', 'Avengers', '', ''),
+('', 'harley.jpg', 'Harley_Quinn_a', './photo/harley.jpg', 'HARLEY QUINN', 'Suicide Squad', '', ''),
+('', 'aqua.jpg', 'Aquaman_a', './photo/aqua.jpg', 'AQUAMAN', 'Justice League', '', ''),
+('', 'widow.jpg', 'Black_Widow_a', './photo/widow.jpg', 'BLACK WIDOW', 'Avengers', '', ''),
+('', 'croc.jpg', 'Killer_Croc_a', './photo/croc.jpg', 'KILLER CROC', 'Suicide Squad', '', ''),
+
+('', 'cyborg.jpg', 'Cyborg_a', './photo/cyborg.jpg', 'CYBORG', 'Justice League', '', ''),
+('', 'hulk.jpg', 'Hulk_a', './photo/hulk.jpg', 'HULK', 'Avengers', '', ''),
+('', 'enchantress.jpg', 'Enchantress_a', './photo/enchantress.jpg', 'ENCHANTRES', 'Suicide Squad', '', '');
+

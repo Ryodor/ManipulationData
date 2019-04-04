@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title> e-commerce </title>
+    <link rel="stylesheet" type="text/css" href="panier.css" />
+  </head>
+  <body>
+   <h1> Adopte-un-hero.com </h1>
+    <nav id="nav">
+    <p1 id="Login-conn"> Login-test </p1>
+  <ul id="menu">
+  <li><a href="accueil.html">Accueil</a>
+  </li>
+  <li><a href="#">Catégories</a>
+    <ul>
+      <li><a href="#">Avenger</a></li>
+      <li><a href="#">Justice League</a></li>
+      <li><a href="#">Suicide Squad </a></li>
+      <li><a href="#">Guardian of the Galaxy</a></li>
+      <li><a href="#">Exclusivités</a></li>
+    </ul>
+  </li>
+  <li><a href="produits.html">Tous les produits</a>
+  </li>
+  <li><a href="#">Mon compte</a>
+  <ul>
+      <li><a href="#">Votre Profil</a></li>
+      <li><a href="panier.html">Votre pannier </a></li>
+      <li><a href="connect.html">Deconnectez-vous</a></li>
+    </ul>
+  </li>
+   <li><a href="#">Informations</a>
+  <ul>
+      <li><a href="#">A propos de nous </a></li>
+      <li><a href="#">Nous contacter </a></li>
+      <li><a href="#">Nous localiser</a></li>
+    </ul>
+  </li>
+  </ul>
+    </nav>
+    <table style="width:100%" id="tablo">
+      <tr>
+      </tr>
+      <tr>
+        <td style="width:400px"><img id="Groot1" src="./pictures/personal/Groot-guardian.jpg"></td>
+        <td><h3>GROOT</h3><br/><h4>GROOT est un monstre extraterestre vegetal qui accompage<br/>
+            Rocket Raccoon dans ca mission de chasseur de tete <h4></td>
+        <td style="width:400px">
+          <form method="post" action="traitement.php">
+            <h4>Entrer la date a laquelle vous vouler recevoir votre hero [Years-Month-Day]</h4>
+            <input type="date" name="livraison"><br/>
+            <h4>Ainsi que l'heure de livraison [Hour:Minutes]</h4>
+            <input type="time" name="heure"><br/>
+            <h4>Et bien sur combien d'heure vous souhaiter le garder a vos cotes [Hour]</h4>
+            <input type="number" name="howmuch"><br/><br/>
+            <input type="button" name="add to basket" value="Ajouter au panier"
+                   onclick="self.location.href='lien.html'" style="background-color:white"
+                   style="color:white; font-weight:bold"onclick>
+          </form>
+        </th>
+      </tr>
+    </table>
+    <div id="footer">
+ Copyright © pruvos_j & selatn_r - 2016
+  </div>
+  </body>
+</html>
